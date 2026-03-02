@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card">
+    <h2>Daily Food Count</h2>
+    <p>Status for: <strong>{{ today }}</strong></p>
+
+
+    <table>
+        <tr>
+            <th>Meal Type</th>
+            <th>Total Students Confirmed</th>
+        </tr>
+        {% for stat in stats %}
+        <tr>
+            <td>{{ stat.meal_type|capfirst }}</td>
+            <td><strong>{{ stat.count }}</strong> Students</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="2">No confirmations yet for today.</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+<div class="card" style="background-color: #e3f2fd;">
+    <p>💡 <strong>Note:</strong> This count helps the cook reduce food wastage!</p>
+</div>
+{% endblock %}

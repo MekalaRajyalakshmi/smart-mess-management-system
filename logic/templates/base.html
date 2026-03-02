@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mess Management System</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4; }
+        nav { background: #333; color: #fff; padding: 1rem; display: flex; justify-content: space-between; }
+        nav a { color: #fff; text-decoration: none; margin-left: 15px; }
+        .container { padding: 20px; max-width: 800px; margin: auto; }
+        .btn-logout { background: #dc3545; padding: 5px 10px; border-radius: 4px; }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div><strong>MessApp</strong></div>
+    <div>
+        {% if user.is_authenticated %}
+            <span>Welcome, {{ user.username }}</span>
+            <a href="{% url 'home' %}">Dashboard</a>
+            <form action="{% url 'logout' %}" method="post" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn-logout" style="border:none; cursor:pointer; color:white;">Logout</button>
+            </form>
+        {% else %}
+            <a href="{% url 'login' %}">Login</a>
+            <a href="{% url 'register' %}">Register</a>
+        {% endif %}
+    </div>
+</nav>
+
+<div class="container">
+    {% block content %}
+    {% endblock %}
+</div>
+
+</body>
+</html>

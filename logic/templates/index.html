@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Smart Mess</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <nav>
+        <strong>Smart Mess System</strong> | User: {{ user.username }} ({{ user.profile.role }}) | 
+        <a href="{% url 'logout' %}">Logout</a>
+    </nav>
+    {% block content %}{% endblock %}
+</body>
+</html>

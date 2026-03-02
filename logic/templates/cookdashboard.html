@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card">
+    <h2>Add Today's Menu</h2>
+    <form method="post">
+        {% csrf_token %}
+        <p>Date: <input type="date" name="date" required></p>
+        <p>Meal Type: 
+            <select name="meal_type">
+                <option value="breakfast">Breakfast</option>
+                <option value="lunch">Lunch</option>
+                <option value="dinner">Dinner</option>
+            </select>
+        </p>
+        <p>Items: <textarea name="items" placeholder="Enter food items..." required></textarea></p>
+        <button type="submit">Update Menu</button>
+    </form>
+</div>
+
+<div class="card">
+    <h3>Upcoming Menus</h3>
+    <table>
+        <tr>
+            <th>Date</th>
+            <th>Meal</th>
+            <th>Items</th>
+        </tr>
+        {% for menu in menus %}
+        <tr>
+            <td>{{ menu.date }}</td>
+            <td>{{ menu.meal_type|capfirst }}</td>
+            <td>{{ menu.items }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

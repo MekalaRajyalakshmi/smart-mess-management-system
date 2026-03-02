@@ -1,0 +1,37 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Mess - Register</title>
+</head>
+<body>
+
+<h2>Smart Mess Registration</h2>
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <p>
+        <label>Select Your Role:</label>
+        <select name="role" required>
+            <option value="student">Student</option>
+            <option value="cook">Cook</option>
+            <option value="rep">Representative</option>
+        </select>
+    </p>
+
+    <button type="submit">Register</button>
+</form>
+
+<hr>
+
+<p>Already have an account?</p>
+<a href="{% url 'login' %}">
+    <button type="button">Login</button>
+</a>
+
+</body>
+</html>

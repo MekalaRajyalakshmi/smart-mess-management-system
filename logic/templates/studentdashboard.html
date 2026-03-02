@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    .card {
+        border: 1px solid #ddd;
+        padding: 15px;
+        margin-bottom: 10px;
+        border-radius: 8px;
+        background-color: #f9f9f9;
+    }
+    .btn-red {
+        background-color: #ff4d4d;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+    }
+    .status-attending { color: #28a745; font-weight: bold; }
+    .status-skipping { color: #dc3545; font-weight: bold; }
+    .status-none { color: #6c757d; font-style: italic; }
+</style>
+
+<h2>Today's Menu ({% now "Y-m-d" %})</h2>
+
+{% for menu in menus %}
+<div class="card">
+    <h3>{{ menu.meal_type|capfirst }}</h3>
+    <p><strong>Menu:</strong> {{ menu.items }}</p>
+    
+    <form method="post">
+        {% csrf_token %}
+        <input type="hidden" name="meal_type" value="{{ menu.meal_type }}">
+        <button name="will_eat" value="yes" type="submit">I will eat</button>
+        <button name="will_eat" value="no" type="submit" class="btn-red">Skip</button>
+    </form>
+    
+    <p><small>Your Status: 
+        {% if menu.attendance_status is True %}
+            <span class="status-attending">Attending</span>
+        {% elif menu.attendance_status is False %}
+            <span class="status-skipping">Skipping</span>
+        {% else %}
+            <span class="status-none">Not decided</span>
+        {% endif %}
+    </small></p>
+</div>
+{% empty %}
+    <p>No menu has been uploaded for today yet.</p>
+{% endfor %}
+
+{% endblock %}
